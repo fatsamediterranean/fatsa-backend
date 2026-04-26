@@ -47,3 +47,42 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`API running on port ${PORT}`);
 });
+
+
+
+
+// POST /api/notifications/send-test-email
+app.post("/api/notifications/send-test-email", (req, res) => {
+  const { to } = req.body || {};
+
+  if (!to) {
+    return res.status(400).json({
+      success: false,
+      message: "Recipient email is required"
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "Test email endpoint working",
+    to
+  });
+});
+
+// POST /api/notifications/send-test-sms
+app.post("/api/notifications/send-test-sms", (req, res) => {
+  const { to } = req.body || {};
+
+  if (!to) {
+    return res.status(400).json({
+      success: false,
+      message: "Recipient phone is required"
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "Test SMS endpoint working",
+    to
+  });
+});
