@@ -9,7 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// TEST ROUTE
+/* =========================
+   TEST ROUTE
+========================= */
 app.get("/api/test", (req, res) => {
   res.json({
     success: true,
@@ -17,13 +19,16 @@ app.get("/api/test", (req, res) => {
   });
 });
 
-// REGISTER (şimdilik basit)
+/* =========================
+   REGISTER
+========================= */
 app.post("/api/customers/register", (req, res) => {
   const { name, email } = req.body;
 
   if (!name || !email) {
     return res.status(400).json({
-      error: "Missing fields"
+      success: false,
+      message: "Missing fields"
     });
   }
 
@@ -34,7 +39,9 @@ app.post("/api/customers/register", (req, res) => {
   });
 });
 
-// EMAIL SETTINGS TEST
+/* =========================
+   EMAIL SETTINGS
+========================= */
 app.get("/api/settings/email", (req, res) => {
   res.json({
     enabled: true,
@@ -42,16 +49,9 @@ app.get("/api/settings/email", (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`API running on port ${PORT}`);
-});
-
-
-
-
-// POST /api/notifications/send-test-email
+/* =========================
+   TEST EMAIL
+========================= */
 app.post("/api/notifications/send-test-email", (req, res) => {
   const { to } = req.body || {};
 
@@ -69,7 +69,9 @@ app.post("/api/notifications/send-test-email", (req, res) => {
   });
 });
 
-// POST /api/notifications/send-test-sms
+/* =========================
+   TEST SMS
+========================= */
 app.post("/api/notifications/send-test-sms", (req, res) => {
   const { to } = req.body || {};
 
@@ -85,4 +87,13 @@ app.post("/api/notifications/send-test-sms", (req, res) => {
     message: "Test SMS endpoint working",
     to
   });
+});
+
+/* =========================
+   SERVER START (EN ALTA!)
+========================= */
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+  console.log(`🚀 API running on port ${PORT}`);
 });
